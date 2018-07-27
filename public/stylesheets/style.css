@@ -1,8 +1,6 @@
+/* Show it is fixed to the top */
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
+  margin-top: 50px;
+  min-height: 75rem;
+  padding-top: 4.5rem;
 }
