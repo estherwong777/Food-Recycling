@@ -19,11 +19,11 @@ html(lang='en')
         span.navbar-toggler-icon
       #navbarCollapse.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
-          li.nav-item.active
+          li.nav-item(class=(title == 'Home' ? 'active' : ''))
             a.nav-link(href='/') Home 
-          li.nav-item.active
+          li.nav-item(class=(title == 'Register' ? 'active' : ''))
             a.nav-link(href='/users/register') Register
-          li.nav-item.active
+          li.nav-item(class=(title == 'Login' ? 'active' : ''))
             a.nav-link(href='/users/login') Login
 
         ul.nav.navbar-nav-navbar-right
