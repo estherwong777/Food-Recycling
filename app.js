@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
-
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var localStrategy = require('passport-local').Strategy;
@@ -14,7 +13,6 @@ var flash = require('connect-flash');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
-
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

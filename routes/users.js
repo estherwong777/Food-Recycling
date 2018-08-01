@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var upload = multer({dest: './uploads'});
+var User = require('../models/user');
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -23,9 +25,10 @@ router.post('/register', upload.single('certification'), function(req, res, next
   var email = req.body.email;
   var password = req.body.password;
   var password2 = req.body.password2;
+  var certification = req.body.certification;
 
   if (req.file) {
-  	console.log('Uploading...');
+  	console.log('Sucess : File uploading');
   	var fileName = req.file.fileName;
   } else {
   	console.log('Error : No file upload');
@@ -47,12 +50,28 @@ router.post('/register', upload.single('certification'), function(req, res, next
   var errors = req.validationErrors();
 
   if (errors) {
-    //Re-render the page, and give it the errors to show on html
+    //Re-render the page, and give it the errors
   	res.render('register', {
+  		//passed to jade file
   		errors : errors
   	});
   } else {
-  	console.log("No errors in form");
+  	var newUser = new User({
+  		name: name,
+  		address: address,
+  		phone: phone,
+  		email: email,
+  		password: password,
+  		certification: certification
+  	});
+  	User.createUser(newUser, function(err, user){
+  		if (err) {
+  			throw err;
+  		}
+  		req.flash('success', 'Registration completed, you can now login.');
+        res.location('/');
+        res.redirect('/');
+  	});
   }
 
 });
