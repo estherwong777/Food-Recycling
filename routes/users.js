@@ -64,6 +64,7 @@ router.post('/register', upload.single('certification'), function(req, res, next
   		password: password,
   		certification: certification
   	});
+  	
   	User.createUser(newUser, function(err, user){
   		if (err) {
   			throw err;

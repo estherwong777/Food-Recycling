@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
+
 
 mongoose.connect('mongodb://localhost/auth');
 
@@ -34,5 +36,15 @@ var User = module.exports = mongoose.model('User', userSchema); //Check this
 
 //Available to files which export this one
 module.exports.createUser = function(newUser, callback) {
-    newUser.save(callback);
+    //We will use async bcrypting (taken from example bcrypt)
+    bcrypt.genSalt(10, function(err, salt) {
+    	bcrypt.hash(newUser.password, salt, function(err, hash) {
+    		    newUser.password = hash; //hashed password before saving
+    		    newUser.save(callback);
+    	});
+    });
+
+
+
+
 }
