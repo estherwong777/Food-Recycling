@@ -32,7 +32,9 @@ var userSchema = mongoose.Schema({
 	}
 });
 
-var User = module.exports = mongoose.model('User', userSchema); //Check this
+//Sets up the database on my local computer
+//mongoose automatically looks for the PLURAL of the collection model. eg. 'Users'
+var User = module.exports = mongoose.model('User', userSchema); 
 
 //Available to files which export this one
 module.exports.createUser = function(newUser, callback) {
@@ -43,8 +45,26 @@ module.exports.createUser = function(newUser, callback) {
     		    newUser.save(callback);
     	});
     });
-
-
-
-
 }
+
+module.exports.getUserByUsername = function(username, callback) {
+	var query = {name: username};
+	User.findOne(query, callback);
+};
+
+
+module.exports.getUserById = function(id, callback) {
+	User.findById(id, callback);
+};
+
+
+
+module.exports.comparePassword = function(passwordAttempt, hash, callback) {
+	// Load hash from your password DB.
+    bcrypt.compare(passwordAttempt, hash, function(err, res) {
+        callback(null, res);
+        //res will store if its matched or not
+    });
+};
+
+

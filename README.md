@@ -1,1 +1,1 @@
-# Food-Recycling
+# FoodRecycler

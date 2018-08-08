@@ -6,7 +6,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-var localStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var multer = require('multer');
 var upload = multer({dest : './uploads'})
 var flash = require('connect-flash');
@@ -52,8 +52,14 @@ app.use(expressValidator({
 
 //express messages
 app.use(require('connect-flash')());
+
+//Global variables
 app.use(function (req, res, next) {
+  //To store error messages
   res.locals.messages = require('express-messages')(req, res);
+
+  //To check whether user is logged in
+  res.locals.user = req.user || null;
   next();
 });
 
@@ -75,6 +81,7 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
