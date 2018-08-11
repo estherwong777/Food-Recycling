@@ -13,13 +13,24 @@ var flash = require('connect-flash');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
-
+var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var postsRouter = require('./routes/posts');
 
 var app = express();
+
+app.locals.moment = require('moment');
+
+//body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+
+app.use(cookieParser());
 
 //sessions
 app.use(session({
@@ -31,6 +42,7 @@ app.use(session({
 //passport
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 //validator
 app.use(expressValidator({
@@ -57,7 +69,6 @@ app.use(require('connect-flash')());
 app.use(function (req, res, next) {
   //To store error messages
   res.locals.messages = require('express-messages')(req, res);
-
   //To check whether user is logged in
   res.locals.user = req.user || null;
   next();
@@ -71,11 +82,11 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

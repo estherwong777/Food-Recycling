@@ -22,6 +22,8 @@ html(lang='en')
           if user
             li.nav-item(class=(title == 'Home' ? 'active' : ''))
               a.nav-link(href='/') Home 
+            li.nav-item(class=(title == 'sellFoods' ? 'active' : ''))
+              a.nav-link(href='/posts/sellFoods') Sell foods 
           if !user
             li.nav-item(class=(title == 'Register' ? 'active' : ''))
               a.nav-link(href='/users/register') Register

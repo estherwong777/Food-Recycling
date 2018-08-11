@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h2.page-header Sell food
+  p Please fill in the details below.
+  if errors
+    each error, i in errors
+      div.alert.alert-danger #{error.msg}
+  form(method='post', action='/posts/sellFoods', enctype='multipart/form-data')
+    .form-group
+     label Title
+     input.form-control(name='title', type='text', placeholder='Enter title')
+    .form-group
+     label Category
+     select.form-control(name='category')
+       option(value='None') None selected
+       option(value='Vegetables') Vegetables
+       option(value='Meat') Meat
+       option(value='Carbohydrates') Carbohydrates
+       option(value='Mixed') Mixed foods
+       option(value='Other') Other
+    .form-group
+     label Description (Please include details of product and pick-up location/method)
+     textarea.form-control(name='body', id=body)
+    .form-group
+     label Image of product
+     input.form-control(name='foodPic', type='file')
+    input.btn.btn-primary(type= 'submit', name='submit', value ='Sell')

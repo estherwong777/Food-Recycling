@@ -1,19 +1,22 @@
 var express = require('express');
 var router = express.Router();
+var posts = require('../models/post');
+
+//var posts = this.Post.PostDB;
 
 /* GET home page. */
-router.get('/', ensureAuthenticated, function(req, res, next) {
-  res.render('index', { title: 'Home' });
+router.get('/', isAuth, function(req, res, next) {
+	posts.find({}, function(err, posts) {
+		res.render('index', { posts: posts });
+	});
 });
 
 
-function ensureAuthenticated(req, res, next) {
+function isAuth(req, res, next) {
 	//Ensure you can only access homepage if logged in
 	if (req.isAuthenticated()) {
 		return next();
-
 	}
-
 	res.redirect('/users/login');
 }
 
