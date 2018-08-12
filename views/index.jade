@@ -5,14 +5,19 @@ block content
     h1 No more leftovers.
     p.lead
       | Find or sell food waste below.
-  .button-center
-    .btn-group
-      button(name='all', type='button', class='btn btn-primary') All
-      button(name='vegetables', type='button', class='btn btn-primary') Vegetables
-      button(name='meat', type='button', class='btn btn-primary') Meat
-      button(name='carbohydrates', type='button', class='btn btn-primary') Carbohydrates
-      button(name='mixed', type='button', class='btn btn-primary') Mixed
-      button(name='others', type='button', class='btn btn-primary') Others
+  ul.nav.nav-tabs
+    li.nav-item
+      a.nav-link(class=(title == 'Home' ? 'active' : ''), href='/') All
+    li.nav-item
+      a.nav-link(class=(cat == 'Vegetables' ? 'active' : ''), href='/posts/Vegetables') Vegetables
+    li.nav-item
+      a.nav-link(class=(cat == 'Meat' ? 'active' : ''), href='/posts/Meat') Meat        
+    li.nav-item
+      a.nav-link(class=(cat == 'Carbohydrates' ? 'active' : ''), href='/posts/Carbohydrates') Carbohydrates
+    li.nav-item
+      a.nav-link(class=(cat == 'Mixed' ? 'active' : ''), href='/posts/Mixed') Mixed
+    li.nav-item
+      a.nav-link(class=(cat == 'Others' ? 'active' : ''), href='/posts/Others') Others
   p
 
   if posts

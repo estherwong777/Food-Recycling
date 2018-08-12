@@ -7,7 +7,7 @@ var posts = require('../models/post');
 /* GET home page. */
 router.get('/', isAuth, function(req, res, next) {
 	posts.find({}, function(err, posts) {
-		res.render('index', { posts: posts });
+		res.render('index', { posts: posts, title: 'Home' });
 	});
 });
 

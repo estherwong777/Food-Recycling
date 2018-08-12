@@ -28,6 +28,12 @@ var postSchema = mongoose.Schema({
 	},
 	isSold: {
 		type: String 
+	},
+	purchasedBy: {
+		type: String
+	},
+	purchaserContact: {
+		type: String
 	}
 });
 

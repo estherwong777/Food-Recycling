@@ -19,10 +19,23 @@ router.get('/myfoods', isAuth, function(req, res, next) {
         res.render('myfoods', {
         posts: posts,
         name : req.user.name,
-        date: new Date()
+        date: new Date(),
+        title: 'myfoods'
         });
     });
 });
+
+router.get('/:category', isAuth, function(req,res,next) {
+    posts.find({"category" : req.params.category}, function(err, posts) {
+            res.render('./', {
+            posts: posts,
+            title: 'categories',
+            cat: req.params.category
+            });
+        });
+});
+
+
 
 function isAuth(req, res, next) {
 	if (req.isAuthenticated()) {
@@ -40,7 +53,6 @@ router.post('/sellFoods', upload.single('foodPic'), function(req, res, next) {
     var date = new Date();
     var foodPic = req.body.foodPic
     var price = req.body.price;
-    var isSold = 'Not sold'
 
     var newPost = new posts({
         body: body,
@@ -50,7 +62,9 @@ router.post('/sellFoods', upload.single('foodPic'), function(req, res, next) {
         date: date,
         foodPic: foodPic,
         price: price,
-        isSold: isSold
+        isSold: 'Not sold',
+        purchasedBy: '',
+        purchaserContact: ''
     });
 
     posts.createPost(newPost, function(err, post) {
