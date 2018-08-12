@@ -22,6 +22,12 @@ var postSchema = mongoose.Schema({
 	},
 	foodPic: {
 		type: String
+	},
+	price: {
+		type: String
+	},
+	isSold: {
+		type: String 
 	}
 });
 

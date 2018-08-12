@@ -19,6 +19,12 @@ block content
        option(value='Carbohydrates') Carbohydrates
        option(value='Mixed') Mixed foods
        option(value='Other') Other
+    .input-group.mb-3
+      .input-group-prepend
+        span.input-group-text $
+      input.form-control(name='price', type='text', aria-label='Amount (to the nearest dollar)', placeholder='Enter price')
+      .input-group-append
+        span.input-group-text .00
     .form-group
      label Description (Please include details of product and pick-up location/method)
      textarea.form-control(name='body', id=body)

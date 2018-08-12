@@ -5,18 +5,28 @@ block content
     h1 No more leftovers.
     p.lead
       | Find or sell food waste below.
+  .button-center
+    .btn-group
+      button(name='all', type='button', class='btn btn-primary') All
+      button(name='vegetables', type='button', class='btn btn-primary') Vegetables
+      button(name='meat', type='button', class='btn btn-primary') Meat
+      button(name='carbohydrates', type='button', class='btn btn-primary') Carbohydrates
+      button(name='mixed', type='button', class='btn btn-primary') Mixed
+      button(name='others', type='button', class='btn btn-primary') Others
+  p
 
   if posts
    each post, i in posts
      .post
-       h1
-         a(href='/posts/show/#{post._id}')
-         =post.title
+       h2 #{post.title}
+       span(class='right') $USD #{post.price}
 
        p.meta #{post.category} produced by #{post.author} on #{moment(post.date).format("MM-DD-YYYY")}
        =post.body
        p
-       a.more(href='/posts/show#{post._id}') Show details
+
+       .button-right
+         a.more(href='/posts/show#{post._id}') Show details
 
 
 

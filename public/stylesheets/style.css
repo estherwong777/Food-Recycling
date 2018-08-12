@@ -38,8 +38,16 @@ body {
 	padding-top: 20px;
 }
 
+.button-center {
+	text-align: center;
+}
+
+.button-right {
+	text-align: right;
+}
+
 a.more {
-	display: block;
+	display: inline-block;
 	width: 115px;
 	background: #0066CC;
 	padding:10px;
@@ -47,6 +55,7 @@ a.more {
 }
 
 .meta {
-	border: 1px solid #acb
-	background:#ccc;
+	border: 1px solid #ccc;
+	background: #ccc;
+	padding-left: 4px;
 }

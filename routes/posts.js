@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var upload = multer({dest: './uploads'});
-var Post = require('../models/post');
+var posts = require('../models/post');
 
 var sellerName = null;
 
@@ -11,7 +11,17 @@ router.get('/sellFoods', isAuth, function(req, res, next) {
 	res.render('sellFoods', {
 		title : 'sellFoods'
 	});
+});
 
+router.get('/myfoods', isAuth, function(req, res, next) {
+
+    posts.find({"author" : req.user.name}, function(err, posts) {
+        res.render('myfoods', {
+        posts: posts,
+        name : req.user.name,
+        date: new Date()
+        });
+    });
 });
 
 function isAuth(req, res, next) {
@@ -29,19 +39,23 @@ router.post('/sellFoods', upload.single('foodPic'), function(req, res, next) {
     var title = req.body.title;
     var date = new Date();
     var foodPic = req.body.foodPic
+    var price = req.body.price;
+    var isSold = 'Not sold'
 
-    var newPost = new Post({
+    var newPost = new posts({
         body: body,
         category: category,
         author: author,
         title: title,
         date: date,
-        foodPic: foodPic
+        foodPic: foodPic,
+        price: price,
+        isSold: isSold
     });
 
-    Post.createPost(newPost, function(err, post) {
+    posts.createPost(newPost, function(err, post) {
     	if (err) throw err;
- //    	req.flash('success', 'Food has successfully been posted.');
+     	req.flash('success', 'Food has successfully been posted.');
         res.location('/');
         res.redirect('/');
     });
