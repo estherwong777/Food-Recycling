@@ -4,17 +4,20 @@ block content
   .jumbotron
     h2 Your foods 
     p.lead Hello #{name}! Track the status of your sold foods here.
-  if posts
+  if posts.length
    each post, i in posts
      .post
        h2 #{post.title}
-       p Status : #{post.isSold} (Updated on: #{moment(date).format("DD-MM-YYYY HH:mm")})
-
        if post.isSold == 'Sold'
-         h3 Purchased by : 
-         h3 Contact details :
-       .button-right
-         input.btn.btn-danger(type= 'delete', name='delete', value ='Delete')
-
+         p #[strong Status] : Sold on #{moment(post.date).format("DD-MM-YYYY HH:mm")}
+         p #[strong Purchased by] : #{post.purchasedBy}
+         p #[strong Contact details] : #{post.purchaserContact}
+       else
+         p #[strong Status] : #{post.isSold} (Updated on: #{moment(date).format("DD-MM-YYYY HH:mm")})
+         .button-right
+           form.form-check-inline(action='/posts/delete/#{post._id}', method='post')
+             input.delete(type= 'submit', name='submit', value ='Delete')
+  else
+    p You do not have any foods that are currently on sale.
 
 

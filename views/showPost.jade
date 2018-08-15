@@ -1,0 +1,23 @@
+extends ./layout
+
+block content
+  .jumbotron
+    h1 #{post.title}
+    p
+
+    h4 Description of product
+    p Posted on #{post.date}
+    p #{post.body}
+    p
+  
+    h4 Details about the producer
+    p #[strong Producer name] : #{producer.name}
+    p #[strong Producer phone number]: #{producer.phone}
+    p #[strong Producer email address] : #{producer.email}
+    p
+
+    h4 Image of product
+    if (post.foodPic)
+      img.img-fluid(src='/images/#{post.foodPic}')
+    
+

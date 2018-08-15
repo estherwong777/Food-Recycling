@@ -54,8 +54,50 @@ a.more {
 	margin-top: 30px;
 }
 
+a.buy {
+	display: inline-block;
+	width: 50px;
+	background: #012333;
+	padding:10px;
+	margin-top: 30px;
+}
+
+input.checkout {
+	width: 100px;
+	background: #ffd300;
+	border-radius: 5px;
+	border:none;
+	padding:10px;
+	margin-top: 30px;
+	text-decoration: none;
+	color: black;
+}
+
+input.buy {
+	display: inline-block;
+	color:#ffffff;
+	width: 110px;
+	background: #012333;
+	border:none;
+	padding:10px;
+	margin-top: 30px;
+	cursor:pointer;
+}
+
+input.delete {
+	display: inline-block;
+	width: 70px;
+	background: #f6465b;
+	border-color: #f6465b;
+	padding:10px;
+	margin-top: 30px;
+	cursor: pointer;
+}
+
 .meta {
 	border: 1px solid #ccc;
 	background: #ccc;
 	padding-left: 4px;
 }
+
+

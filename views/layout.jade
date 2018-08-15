@@ -9,9 +9,9 @@ html(lang='en')
     title FoodRecycler
 
     // Bootstrap core CSS
-    link(href='../stylesheets/bootstrap.css', rel='stylesheet')
+    link(href='/../stylesheets/bootstrap.css', rel='stylesheet')
     // Custom styles for this template
-    link(href='../stylesheets/style.css', rel='stylesheet')
+    link(href='/../stylesheets/style.css', rel='stylesheet')
   body
     nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
       a.navbar-brand(href='#') FoodRecycler
@@ -34,7 +34,11 @@ html(lang='en')
         ul.nav.navbar-nav-navbar-right
           if user
             li
-              a(href='/users/logout') Logout
+              a.btn.btn-info.btn-sm(href='/cart')
+                span.glyphicon.glyphicon-shopping-cart
+                | My Cart
+            li
+              a.btn.btn-warning.btn-sm(href='/users/logout') Logout
 
     .container
      !=messages()

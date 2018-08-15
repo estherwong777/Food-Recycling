@@ -57,13 +57,6 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-// router.post('/login',
-//   passport.authenticate('local', {failureRedirect: '/users/login', 
-//     failureFlash: 'Invalid username or password'}),
-//     function(req, res) {
-//       req.flash('success', 'You are now logged in');
-//       res.redirect('/');
-//   });
 router.post('/login',
   passport.authenticate('local', { failureRedirect: '/users/login', failureFlash: 'Invalid username or password' }),
   function (req, res) {
@@ -118,7 +111,7 @@ router.post('/register', upload.single('certification'), function(req, res, next
   		phone: phone,
   		email: email,
   		password: password,
-  		certification: certification
+  		certification: fileName
   	});
   	
   	User.createUser(newUser, function(err, user){

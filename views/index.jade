@@ -22,16 +22,19 @@ block content
 
   if posts
    each post, i in posts
-     .post
-       h2 #{post.title}
-       span(class='right') $USD #{post.price}
+     if post.isSold != 'Sold'
+       .post
+         h2 #{post.title}
+         span(class='right') $USD #{post.price}
 
-       p.meta #{post.category} produced by #{post.author} on #{moment(post.date).format("MM-DD-YYYY")}
-       =post.body
-       p
+         p.meta #{post.category} produced by #{post.author} on #{moment(post.date).format("MM-DD-YYYY")}
+         =post.body
+         p
 
-       .button-right
-         a.more(href='/posts/show#{post._id}') Show details
+         .button-right
+           a.more(href='/posts/show/#{post._id}') Show details
+           form.form-check-inline(action='/cart/#{post._id}', method='post')
+             input.buy(type= 'submit', name='submit', value ='Add To Cart')
 
 
 

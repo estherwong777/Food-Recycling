@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  h2.page-header Your Cart
+  p
+  if (cart.items.length)
+    table.table.table-hover
+      thead
+       tr 
+         th Food
+         th Producer
+         th Price
+      tbody
+        each item, i in cart.items
+          tr
+            td 
+              a(href='posts/show/#{item.id}') #{item.food}
+            td #{item.producer}
+            td $USD #{item.price}
+    p #[strong Total] : $USD #{cart.total}
+
+    .button-center
+      form.form-check-inline(action='/cart/checkout', method='post')
+        input.checkout(type= 'submit', name='submit', value ='Checkout')
+  else
+    p Your cart is currently empty. 
+  
+
+
+
+
+
+

@@ -1,11 +1,26 @@
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
-var upload = multer({dest: './uploads'});
+var upload = multer({dest: './public/images'});
 var posts = require('../models/post');
+var users = require('../models/user');
 
 var sellerName = null;
 
+router.get('/show/:id', isAuth, function(req, res, next) {
+    var currPost = {};
+    var producer = {};
+
+    posts.findOne({_id: req.params.id}, function(err, post) {
+        if (err) throw err;
+        users.findOne({name: post.author}, function(err, user) {
+            if (err) throw err;
+            res.render('showPost', {title: 'showPost', 
+                post: post, producer: user});
+
+      });
+    }); 
+});
 router.get('/sellFoods', isAuth, function(req, res, next) {
 	sellerName = req.user.name;
 	res.render('sellFoods', {
@@ -24,6 +39,17 @@ router.get('/myfoods', isAuth, function(req, res, next) {
         });
     });
 });
+
+router.post('/delete/:id', function(req, res) {
+    posts.deleteOne({_id: req.params.id}, function(err, post) {
+        if (err) throw err;
+        req.flash('success', 'Successfully deleted');
+        res.redirect('/posts/myfoods');
+    });
+
+});
+
+
 
 router.get('/:category', isAuth, function(req,res,next) {
     posts.find({"category" : req.params.category}, function(err, posts) {
@@ -51,8 +77,15 @@ router.post('/sellFoods', upload.single('foodPic'), function(req, res, next) {
     var author = sellerName;
     var title = req.body.title;
     var date = new Date();
-    var foodPic = req.body.foodPic
     var price = req.body.price;
+
+    if (req.file) {
+        console.log("Uploading file");
+        var fileName = req.file.filename;
+    } else {
+        console.log("No image uploaded");
+        var fileName = 'noimage.jpg';
+    }
 
     var newPost = new posts({
         body: body,
@@ -60,7 +93,7 @@ router.post('/sellFoods', upload.single('foodPic'), function(req, res, next) {
         author: author,
         title: title,
         date: date,
-        foodPic: foodPic,
+        foodPic: fileName,
         price: price,
         isSold: 'Not sold',
         purchasedBy: '',

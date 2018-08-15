@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  h1 Checkout
+  p Please fill in the details below to purchase the product.
+    form(method='post', action='/cart/buy', enctype='multipart/form-data')
+      .form-group
+       label Payment mathod
+         select.form-control(name='category')
+           option(value='visa') Visa
+           option(value='mastercard') Mastercard
+           option(value='paypal') Paypal
+           option(value='cash') Cash (at pick-up location)
+      .form-group
+       label Description of usage
+       textarea.form-control(name='usage', id=usage)
+      .form-group
+       label Contact number for pick-up
+       input.form-control(name='phone', type='text', placeholder='Enter phone number')
+      .button-center
+        input.btn.btn-primary(type= 'submit', name='submit', value ='Submit')
